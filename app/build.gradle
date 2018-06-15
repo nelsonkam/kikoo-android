@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.kikoo.kikoo"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.0.2"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
+        }
+        release {
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:cardview-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.firebase:firebase-storage:15.0.2'
+    compile 'io.github.inflationx:calligraphy3:3.0.0'
+    compile 'io.github.inflationx:viewpump:1.0.0'
+    compile 'com.github.devahamed:multi-view-adapter:1.2.6'
+    compile 'com.github.medyo:fancybuttons:1.8.4'
+    compile 'com.stepstone.apprating:app-rating:2.2.0'
+    implementation 'com.google.firebase:firebase-auth:15.1.0'
+    compile 'com.google.firebase:firebase-firestore:16.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+
+apply plugin: 'com.google.gms.google-services'
