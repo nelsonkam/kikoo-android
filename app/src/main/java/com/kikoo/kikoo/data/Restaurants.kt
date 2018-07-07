@@ -94,3 +94,11 @@ fun sendFeedback(rate: Int, comment: String, onSucess: () -> Unit) {
 
     }
 }
+fun getLatestVersion(onSuccess: (String) -> Unit) {
+    val db = FirebaseFirestore.getInstance()
+    var query = db.collection("info").document("version").get().addOnSuccessListener { doc ->
+        if (doc.exists()) {
+            onSuccess(doc.get("name") as String)
+        }
+    }
+}

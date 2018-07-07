@@ -21,8 +21,9 @@ import com.stepstone.apprating.AppRatingDialog
 import com.stepstone.apprating.listener.RatingDialogListener
 import java.util.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
-
-
+import android.R.attr.versionName
+import android.content.pm.PackageInfo
+import com.kikoo.kikoo.data.getLatestVersion
 
 
 class MainActivity : AppCompatActivity(), RatingDialogListener {
@@ -52,6 +53,14 @@ class MainActivity : AppCompatActivity(), RatingDialogListener {
                 Menu(name = "Chargement en cours..."),
                 Menu(name = "Chargement en cours...")
         ))
+        getLatestVersion { version ->
+            val pInfo = this.packageManager.getPackageInfo(packageName, 0)
+            if (pInfo.versionName != version) {
+                startActivity(Intent(this, UpdateActivity::class.java))
+            }
+        }
+
+
         getAllRestaurants(::onDataLoaded, ::onDataError)
         restaurant_list.apply {
             // use this setting to improve performance if you know that changes
@@ -95,6 +104,7 @@ class MainActivity : AppCompatActivity(), RatingDialogListener {
         ma_rate.setOnClickListener {
             showRating()
         }
+
     }
     private fun showDialog() {
         dialog.show()
